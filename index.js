@@ -10,7 +10,7 @@ const fs = require('fs');
 async function retrieveAccountTxs(account) {
     const client = new xrpl.Client('wss://s1.ripple.com/');
 
-    const convertUnixToReadableTime = (rippleTime) => {
+    const convertRippleTimeToReadableTime = (rippleTime) => {
         const unixTimestamp = rippleTime + 946684800;
         const dateObj = new Date(unixTimestamp * 1000);
         const readableDate = dateObj.toUTCString();
@@ -47,7 +47,7 @@ async function retrieveAccountTxs(account) {
                 TxnSignature: object.tx.TxnSignature ? object.tx.TxnSignature : "",
                 hash: object.tx.hash ? object.tx.hash : "",
                 ledger_index: object.tx.ledger_index ? object.tx.ledger_index : "",
-                date: object.tx.date ? convertUnixToReadableTime(object.tx.date) : ""
+                date: object.tx.date ? convertRippleTimeToReadableTime(object.tx.date) : ""
             };
 
             newObjArray.push(newObject);
