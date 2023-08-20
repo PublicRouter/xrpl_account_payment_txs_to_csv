@@ -1,0 +1,24 @@
+{
+  "name": "xrpl_account_payment_txs_to_csv",
+  "version": "1.0.0",
+  "description": "pull all payment tx history from a xrpl account and convert to csv to import into google sheets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PublicRouter/xrpl_account_payment_txs_to_csv.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "xrpl": "^2.7.0-beta.0"
+  },
+  "bugs": {
+    "url": "https://github.com/PublicRouter/xrpl_account_payment_txs_to_csv/issues"
+  },
+  "homepage": "https://github.com/PublicRouter/xrpl_account_payment_txs_to_csv#readme"
+}
