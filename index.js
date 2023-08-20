@@ -54,7 +54,42 @@ async function retrieveAccountTxs(account) {
         };
     };
 
-   console.log("Payment txs array in uniform format: ",newObjArray)
+    const csvString = convertToCSV(newObjArray);
+    fs.writeFileSync('output.csv', csvString);
+};
+
+function convertToCSV(objArray) {
+    const array = typeof objArray !== 'object' ? JSON.parse(objArray) : objArray;
+    let str = '';
+
+    // Helper function to format cell data
+    const formatCell = (data) => {
+        if (typeof data === 'string' && data.includes('"')) {
+            data = data.replace(/"/g, '""');  // escape double quotes inside data
+        };
+        return `"${data}"`; // enclose data in double quotes
+    };
+
+    // headers
+    let headers = Object.keys(objArray[0]).map(key => formatCell(key)).join(',') + '\n';
+    str += headers;
+
+    for (let i = 0; i < array.length; i++) {
+        // Check if the TransactionType is "Payment"
+        if (array[i].TransactionType !== 'Payment') {
+            continue;  // skip to the next iteration if not "Payment"
+        };
+
+        let line = '';
+        for (let index in array[i]) {
+            if (line !== '') line += ',';
+            line += formatCell(array[i][index]);
+        };
+
+        str += line + '\r\n';
+    };
+
+    return str;
 };
 
 retrieveAccountTxs(process.env.MAINNET_WALLET_1)
